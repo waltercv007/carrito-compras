@@ -1,71 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% pageContext.setAttribute("pageTitle", "Iniciar Sesión"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <jsp:include page="head.jsp" />
 </head>
-<body>
-<h1 class="bg-primary text-center text-white">SERVICAS GROUP E.I.R.L</h1>
-	<p class="text-center Strong"> Venta de Equipos  Accesorios y Suministros de Computo</p>
-	
-	<main class="container d-flex align-items-center justify-content-center">
-		
-			<form action="Validar.jsp" method="POST" class="needs-validation" novalidate>
 
-				<h1 class="text-center text-primary">Login</h1>
+<jsp:include page="header.jsp" />
 
-				<div class="form-floating mb-3">
-				  <input type="text" name="txtUser" class="form-control" placeholder="" required>
-				  <label>Usuario</label>
-				  <div class="invalid-feedback"> ¡Ingrese su usuario!</div>
-				</div>
-				<select name="rol" class="form-select mx-auto mb-4" style="width: 250px;">
-				    <option selected disabled>Seleccione Rol</option>
-				    <option value="ADMIN">Administrador</option>
-				    <option value="VENDEDOR">Vendedor</option>
-				    <option value="TECNICO">Técnico</option>
-				</select>
-				<div class="form-floating mb-3">
-				  <input type="text" name="txtPass" class="form-control" placeholder="" required>
-				  <label>Contraseña</label>
-				  <div class="invalid-feedback"> ¡Ingrese su contraseña!</div>
-				</div>
-				
-				<div>
-					<input class="btn btn-primary w-100" type="submit" value="INGRESAR">				
-				</div>
-				
-			</form>
-					
-		</main>
-			
-			
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-		
-		<script>
-			// Example starter JavaScript for disabling form submissions if there are invalid fields
-			(() => {
-			  'use strict'
-	
-			  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-			  const forms = document.querySelectorAll('.needs-validation')
-	
-			  // Loop over them and prevent submission
-			  Array.from(forms).forEach(form => {
-			    form.addEventListener('submit', event => {
-			      if (!form.checkValidity()) {
-			        event.preventDefault()
-			        event.stopPropagation()
-			      }
-	
-			      form.classList.add('was-validated')
-			    }, false)
-			  })
-			})()			
-		</script>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4" style="margin-top: 50px;">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Iniciar Sesión</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="LoginController" method="post">
+                            <!-- Display Error Message -->
+                            <% if (request.getAttribute("error") != null) { %>
+                                <div class="alert alert-danger" role="alert">
+                                    ${error}
+                                </div>
+                            <% } %>
 
-</body>
-</html>
+                            <div class="mb-3">
+                                <label for="usuario" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<jsp:include page="footer.jsp" />

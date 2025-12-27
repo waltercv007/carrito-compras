@@ -59,9 +59,11 @@ public class ProductoController extends HttpServlet {
 			
 		case "actualizar":
 			actualizarProducto(request, response);
+			break;
 			
 		case "mostrarCatalogo":
 			mostrarCatalogo(request, response);
+			break;
 		}
 	}
 	
