@@ -27,7 +27,7 @@
             %>
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="<%= (p.getImagen() != null && !p.getImagen().isEmpty()) ? p.getImagen() : "https://via.placeholder.com/200" %>" class="card-img-top" alt="<%= p.getModelo() %>">
+                    <img src="<%= (p.getImagen() != null && !p.getImagen().isEmpty()) ? p.getImagen() : "https://placehold.co/600x400" %>" class="card-img-top" alt="<%= p.getModelo() %>">
                     <div class="card-body">
                         <h5 class="card-title"><%= p.getModelo() %></h5>
                         <p class="card-text">Precio: S/ <%= String.format("%.2f", p.getPrecio()) %></p>
