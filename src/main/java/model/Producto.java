@@ -15,8 +15,15 @@ public class Producto {
 	private String codigo,modelo;
 	private int id,stock;
 	private double precio;
+	private String imagen;
 	
 	// Set y Get
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	public String getCodigo() {
 		return codigo;
 	}
@@ -50,7 +57,7 @@ public class Producto {
 	
 	// Metodos para el CRUD
 	public boolean crearProducto() {
-		String sql = "INSERT INTO producto (codigo,modelo,stock,precio) VALUES (?,?,?,?)";
+		String sql = "INSERT INTO producto (codigo,modelo,stock,precio,imagen) VALUES (?,?,?,?,?)";
 		try(Connection con = ConexionMySQL.obtenerConexion();
 			PreparedStatement ps = con.prepareStatement(sql)) {
 		
@@ -58,6 +65,7 @@ public class Producto {
 		ps.setString(2, getModelo());
 		ps.setInt(3, getStock());
 		ps.setDouble(4, getPrecio());
+		ps.setString(5, getImagen());
 		
 		// Ejecutar
 		int filasAfectadas = ps.executeUpdate();
@@ -71,7 +79,7 @@ public class Producto {
 	
 	public List<Producto> obtenerTodosLosProductos() {
 		List<Producto> lista = new ArrayList<>();
-		String sql = "SELECT id, codigo, modelo, stock, precio FROM producto";
+		String sql = "SELECT id, codigo, modelo, stock, precio, imagen FROM producto";
 		
 		try(Connection con = ConexionMySQL.obtenerConexion();
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -84,6 +92,7 @@ public class Producto {
 				p.setPrecio(rs.getDouble("precio"));
 				p.setCodigo(rs.getString("codigo"));
 				p.setModelo(rs.getString("modelo"));
+				p.setImagen(rs.getString("imagen"));
 				lista.add(p);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
@@ -112,7 +121,7 @@ public class Producto {
 		Connection con = ConexionMySQL.obtenerConexion();
 		Producto objPro = null;
 		
-		String sql = "SELECT id, stock, precio, codigo, modelo FROM producto WHERE id = ?";
+		String sql = "SELECT id, stock, precio, codigo, modelo, imagen FROM producto WHERE id = ?";
 		
 		PreparedStatement pstsmt = con.prepareStatement(sql);
 		pstsmt.setInt(1, id);
@@ -127,6 +136,7 @@ public class Producto {
 			objPro.setPrecio(rs.getDouble("precio"));
 			objPro.setCodigo(rs.getString("codigo"));
 			objPro.setModelo(rs.getString("modelo"));
+			objPro.setImagen(rs.getString("imagen"));
 		}
 		
 		return objPro;
@@ -135,13 +145,14 @@ public class Producto {
 	public boolean actualizarProducto() throws SQLException, ClassNotFoundException {
 		
 		Connection con = ConexionMySQL.obtenerConexion();
-		String sql = "UPDATE producto SET codigo = ?, modelo = ?, stock = ?, precio = ? WHERE id = ?";
+		String sql = "UPDATE producto SET codigo = ?, modelo = ?, stock = ?, precio = ?, imagen = ? WHERE id = ?";
 		PreparedStatement pstsmt = con.prepareStatement(sql);
 		pstsmt.setString(1, getCodigo());
 		pstsmt.setString(2, getModelo());
 		pstsmt.setInt(3, getStock());
 		pstsmt.setDouble(4, getPrecio());
-		pstsmt.setInt(5, getId());
+		pstsmt.setString(5, getImagen());
+		pstsmt.setInt(6, getId());
 		
 		int filasAfectaron = pstsmt.executeUpdate();
 		

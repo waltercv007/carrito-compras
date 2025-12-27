@@ -31,6 +31,7 @@
 	String modelo = "";
 	int stock = 0;
 	double precio = 0.0;
+	String imagen = "";
 	String accionFormulario = "guardar";
 	String tituloFormulario = "Crear Producto";
 	String color = "primary";
@@ -42,6 +43,7 @@
 		modelo = producto.getModelo();
 		stock = producto.getStock();
 		precio = producto.getPrecio();
+		imagen = producto.getImagen();
 		accionFormulario = "actualizar";
 		tituloFormulario = "Editar Producto";
 		color = "primary";
@@ -86,7 +88,11 @@
 	    
 	    <!-- Precio -->
 	    <label class="form-label mt-3">Precio</label>
-	    <input type="number" name="txtPrecio" value="<%= precio %>" id="precio" class="form-control" min="1">
+	    <input type="number" name="txtPrecio" value="<%= precio %>" id="precio" class="form-control" step="0.5" min="1">
+	    
+	    <!-- Imagen -->
+	    <label class="form-label mt-3">Imagen</label>
+	    <input type="text" name="txtImagen" value="<%= imagen %>" placeholder="imagen" class="form-control">
 	    
 	    <div>
 			<input class="btn btn-<%= color %> w-100" type="submit" value="<%= boton %>">
@@ -114,6 +120,7 @@
 		      <th scope="col">modelo</th>
 		      <th scope="col">stock</th>
 		      <th scope="col">precio</th>
+		      <th scope="col">imagen</th>
 		      <th scope="col">editar</th>
 		      <th scope="col">eliminar</th>
 		    </tr>
@@ -129,6 +136,7 @@
 			  	<td><%= objPro.getModelo() %></td>
 			  	<td><%= objPro.getStock() %></td>
 			  	<td><%= objPro.getPrecio() %></td>
+			  	<td><%= objPro.getImagen()%></td>
 			  	
 			  	<td><a href="ProductoController?accion=editar&txtId=<%= objPro.getId() %>"><i class="bi bi-pencil-square text-warning"></i></a></td>
 			  	<td><a href="ProductoController?accion=eliminar&txtId=<%= objPro.getId() %>"><i class="bi bi-trash-fill text-danger"></i></a></td>

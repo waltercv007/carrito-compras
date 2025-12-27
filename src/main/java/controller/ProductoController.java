@@ -59,6 +59,9 @@ public class ProductoController extends HttpServlet {
 			
 		case "actualizar":
 			actualizarProducto(request, response);
+			
+		case "mostrarCatalogo":
+			mostrarCatalogo(request, response);
 		}
 	}
 	
@@ -80,6 +83,7 @@ public class ProductoController extends HttpServlet {
 		String modelo = request.getParameter("txtModelo");
 		int stock = Integer.parseInt(request.getParameter("txtStock"));
 		double precio = Double.parseDouble(request.getParameter("txtPrecio"));
+		String imagen = request.getParameter("txtImagen");
 		
 		// 2. Crear objeto Producto (Modelo) y asignar valores
 		Producto nuevoProducto = new Producto();
@@ -88,6 +92,7 @@ public class ProductoController extends HttpServlet {
 		nuevoProducto.setModelo(modelo);
 		nuevoProducto.setStock(stock);
 		nuevoProducto.setPrecio(precio);
+		nuevoProducto.setImagen(imagen);
 		
 		// 3. Llamar al método del Modelo para Guardar
 		nuevoProducto.crearProducto();
@@ -129,6 +134,7 @@ public class ProductoController extends HttpServlet {
 		String modelo = request.getParameter("txtModelo");
 		int stock = Integer.parseInt(request.getParameter("txtStock"));
 		double precio = Double.parseDouble(request.getParameter("txtPrecio"));
+		String imagen = request.getParameter("txtImagen");
 		
 		// 2. Crear objeto Producto y asignarles valores
 		objPro.setId(id);
@@ -136,11 +142,28 @@ public class ProductoController extends HttpServlet {
 		objPro.setModelo(modelo);
 		objPro.setStock(stock);
 		objPro.setPrecio(precio);
+		objPro.setImagen(imagen);
 		
 		// 3. Llamar al método del MODELO
 		objPro.actualizarProducto();
 		
 		// 4. Redirigir a la VISTA
 		request.getRequestDispatcher("ProductoController?accion=listar").forward(request, response);
+	}
+	
+	private void mostrarCatalogo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 1. Llama al Modelo para obtener los datos de los productos
+		List<Producto> listaProductos = objPro.obtenerTodosLosProductos();
+		
+		// 2. Llama al modelo del carrito para obtener la cantidad de items
+		model.Cart cart = new model.Cart();
+		int cartCount = cart.getCartProducts().size();
+		
+		// 3. Guarda los datos en el request para la Vista
+		request.setAttribute("listaProductos", listaProductos);
+		request.setAttribute("cartCount", cartCount);
+		
+		// 4. Redirige a la Vista (JSP)
+		request.getRequestDispatcher("catalogo.jsp").forward(request, response);
 	}
 }
