@@ -1,3 +1,4 @@
+<!-- guiProducto.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -33,7 +34,7 @@
 	String accionFormulario = "guardar";
 	String tituloFormulario = "Crear Producto";
 	String color = "primary";
-	String boton = "agragar";
+	String boton = "agregar";
 	
 	if (producto != null) {
 		id = producto.getId();
@@ -52,7 +53,7 @@
 		<h2 class="text-center"><%= tituloFormulario %></h2>
 	    <input type="hidden" name="accion" value="<%= accionFormulario %>">
 	    
-	    <input type="hidden" name="id" value="<%= id %>">
+	    <input type="hidden" name="txtId" value="<%= id %>">
 	    
 	    <label class="form-label">Código Producto</label>
 	    <input type="text" name="txtCodigo" value="<%= codigo %>" class="form-control" maxlength="6" placeholder="Código">
@@ -129,8 +130,8 @@
 			  	<td><%= objPro.getStock() %></td>
 			  	<td><%= objPro.getPrecio() %></td>
 			  	
-			  	<td><a href="ProductoController?accion=editar&id=<%= objPro.getId() %>"><i class="bi bi-pencil-square text-warning"></i></a></td>
-			  	<td><a href="ProductoController?accion=eliminar&id=<%= objPro.getId() %>"><i class="bi bi-trash-fill text-danger"></i></a></td>
+			  	<td><a href="ProductoController?accion=editar&txtId=<%= objPro.getId() %>"><i class="bi bi-pencil-square text-warning"></i></a></td>
+			  	<td><a href="ProductoController?accion=eliminar&txtId=<%= objPro.getId() %>"><i class="bi bi-trash-fill text-danger"></i></a></td>
 			  </tr>
 		  <%
 		  }

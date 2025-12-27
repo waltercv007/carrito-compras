@@ -1,3 +1,4 @@
+// model.Producto.java
 package model;
 
 import java.sql.Connection;
@@ -138,7 +139,7 @@ public class Producto {
 		PreparedStatement pstsmt = con.prepareStatement(sql);
 		pstsmt.setString(1, getCodigo());
 		pstsmt.setString(2, getModelo());
-		pstsmt.setInt(3, stock);
+		pstsmt.setInt(3, getStock());
 		pstsmt.setDouble(4, getPrecio());
 		pstsmt.setInt(5, getId());
 		

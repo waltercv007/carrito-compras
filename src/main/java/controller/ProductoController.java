@@ -20,8 +20,12 @@ public class ProductoController extends HttpServlet {
     
 	Producto objPro = new Producto();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		
+		try {
+			processRequest(request,response);
+		} catch (ClassNotFoundException | SQLException | IOException | ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
@@ -94,7 +98,7 @@ public class ProductoController extends HttpServlet {
 	
 	private void eliminarProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 1. Obtener el ID del producto a eliminar
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("txtId"));
 		
 		// 2. Llamar al método del Modelo para Eliminar
 		objPro.eliminarProducto(id);
@@ -106,7 +110,7 @@ public class ProductoController extends HttpServlet {
 	private void mostrarFormularioEditar(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, ServletException, IOException {
 		
 		// 1. Obtener el ID del producto a editar
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("txtId"));
 		
 		// 2. Llamar al modelo para obtener el producto
 		Producto productoEditar = objPro.obtenerProductoPorId(id);
@@ -120,11 +124,11 @@ public class ProductoController extends HttpServlet {
 	
 	private void actualizarProducto(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException, ServletException {
 		// 1. Recoger todos los datos (incluyendo el ID oculto)
-		int id = Integer.parseInt(request.getParameter("id"));
-		String codigo = request.getParameter("codigo");
-		String modelo = request.getParameter("modelo");
-		int stock = Integer.parseInt(request.getParameter("stock"));
-		double precio = Double.parseDouble(request.getParameter("precio"));
+		int id = Integer.parseInt(request.getParameter("txtId"));
+		String codigo = request.getParameter("txtCodigo");
+		String modelo = request.getParameter("txtModelo");
+		int stock = Integer.parseInt(request.getParameter("txtStock"));
+		double precio = Double.parseDouble(request.getParameter("txtPrecio"));
 		
 		// 2. Crear objeto Producto y asignarles valores
 		objPro.setId(id);
